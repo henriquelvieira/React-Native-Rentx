@@ -18,7 +18,7 @@ export function Home () {
                     period: 'AO DIA',
                     price: 120
                 },
-                thumbnail: 'x'
+                thumbnail: 'https://freepngimg.com/thumb/audi/35227-5-audi-rs5-red.png'
             }
         },
         {        
@@ -30,7 +30,7 @@ export function Home () {
                     period: 'AO DIA',
                     price: 120
                 },
-                thumbnail: 'x'
+                thumbnail: 'https://freepngimg.com/thumb/audi/35227-5-audi-rs5-red.png'
             }
         },    
     ] as CarProps[];

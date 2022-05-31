@@ -17,8 +17,8 @@ export function ImageSlider ({
     return (
     <Container>
         <ImageIndexes>
-            <ImageIndex active={true} />
             <ImageIndex active={false} />
+            <ImageIndex active={true} />
             <ImageIndex active={false} />
         </ImageIndexes>
     

@@ -16,6 +16,7 @@ import {
 } from '@expo-google-fonts/archivo';
 
 import { Home } from '@screens/Home';
+import { CarDetails } from '@screens/CarDetails';
 
 import theme from '@theme/theme';
 
@@ -37,7 +38,8 @@ export default function App() {
     <GestureHandlerRootView style={{ flex: 1 }} >
       <ThemeProvider theme={theme}>
           <StatusBar style="light" translucent backgroundColor="transparent" />
-          <Home />
+          {/* <Home /> */}
+          <CarDetails />
           
       </ThemeProvider>
     </GestureHandlerRootView>
