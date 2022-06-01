@@ -79,4 +79,9 @@ export const About = styled.Text`
     margin-top: 23px;
 `;
 
+export const Accessories = styled.View`
+    width: 100%;
+`;
+
+
 
