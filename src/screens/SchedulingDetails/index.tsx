@@ -1,4 +1,6 @@
 import React from 'react';
+import { Feather } from '@expo/vector-icons';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 import { Header } from '@components/Header';
 import { ImageSlider } from '@components/ImageSlider';
@@ -12,6 +14,7 @@ import gasolineSvg from '@assets/gasoline.svg';
 import exchangeSvg from '@assets/exchange.svg';
 import peopleSvg from '@assets/people.svg';
 
+import theme from '@theme/theme';
 import { 
     Brand, 
     CarImages, 
@@ -25,11 +28,13 @@ import {
     Rent,
     About,
     Accessories,
-    Footer
+    Footer,
+    RentalPeriod,
+    CalendarIcon
 } from './styles';
 
 
-export function CarDetails () {
+export function SchedulingDetails () {
     return (
     <Container>
         
@@ -64,17 +69,21 @@ export function CarDetails () {
                 <Accessory name='2 pessoas' icon={peopleSvg} />                
             </Accessories>
 
-            <About>
-                Este é automóvel desportivo. Surgiu do lendário
-                touro de lide indultado na praça Real Maestranza de Sevilla. 
-                É um belíssimo carro para quem gosta de acelerar.
-            </About>
+            <RentalPeriod>
+                <CalendarIcon>
+                    <Feather 
+                        name='calendar' 
+                        size={RFValue(24)} 
+                        color={theme.colors.shape}
+                    />
+                </CalendarIcon>
 
+            </RentalPeriod>
         </Content>
         
         <Footer>
             <Button 
-                title="Escolher período do aluguel"
+                title="Confirmar"
                 onPress={()=>{}}
             />
         </Footer>
