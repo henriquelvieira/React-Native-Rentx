@@ -26,13 +26,19 @@ import {
     Period, 
     Price, 
     Rent,
-    About,
     Accessories,
     Footer,
     RentalPeriod,
-    CalendarIcon
+    CalendarIcon,
+    DateInfo,
+    DateTitle,
+    DateValue,
+    RentalPrice,
+    RentalPriceLabel,
+    RentalPriceDetails,
+    RentalPriceQuota,
+    RentalPriceTotal,
 } from './styles';
-
 
 export function SchedulingDetails () {
     return (
@@ -57,7 +63,6 @@ export function SchedulingDetails () {
                     <Period>Ao dia</Period>
                     <Price>R$ 580</Price>
                 </Rent>
-
             </Details>
             
             <Accessories>
@@ -78,7 +83,31 @@ export function SchedulingDetails () {
                     />
                 </CalendarIcon>
 
+                <DateInfo>
+                    <DateTitle>DE</DateTitle>
+                    <DateValue>18/06/2022</DateValue>
+                </DateInfo>
+
+                <Feather 
+                    name='chevron-right' 
+                    size={RFValue(10)} 
+                    color={theme.colors.text}
+                >
+
+                <DateInfo>
+                    <DateTitle>ATÉ</DateTitle>
+                    <DateValue>20/06/2022</DateValue>
+                </DateInfo>
             </RentalPeriod>
+
+            <RentalPrice>
+                <RentalPriceLabel>TOTAL</RentalPriceLabel>
+                <RentalPriceDetails>
+                    <RentalPriceQuota>R$ 580 x3 diárias</RentalPriceQuota>
+                    <RentalPriceTotal>R$ 2.900</RentalPriceTotal>
+                </RentalPriceDetails>
+            </RentalPrice>
+
         </Content>
         
         <Footer>
