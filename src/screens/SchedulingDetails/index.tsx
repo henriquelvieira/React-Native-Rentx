@@ -1,6 +1,7 @@
 import React from 'react';
 import { Feather } from '@expo/vector-icons';
 import { RFValue } from 'react-native-responsive-fontsize';
+import { useNavigation } from '@react-navigation/native';
 
 import { Header } from '@components/Header';
 import { ImageSlider } from '@components/ImageSlider';
@@ -41,9 +42,15 @@ import {
 } from './styles';
 
 export function SchedulingDetails () {
+    const navigation = useNavigation();
+
+    function handleConfirmRental(){
+        navigation.navigate('SchedulingComplete');
+    };
+
     return (
     <Container>
-        
+   
         <Header onPress={() => {}} />
 
         <CarImages>
@@ -112,8 +119,9 @@ export function SchedulingDetails () {
         
         <Footer>
             <Button 
-                title="Confirmar"
-                onPress={()=>{}}
+                title="Alugar agora"
+                color={theme.colors.success}
+                onPress={handleConfirmRental}
             />
         </Footer>
         

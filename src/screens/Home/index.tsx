@@ -1,12 +1,15 @@
 import React from 'react';
 import { StatusBar } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { RFValue } from 'react-native-responsive-fontsize';
-import { CarList, Container, Header, HeaderContent, TotalCars } from './styles';
 import { Car, CarProps } from '@components/Car';
 
 import Logo from '@assets/logo.svg';
+import { CarList, Container, Header, HeaderContent, TotalCars } from './styles';
 
 export function Home () {
+
+    const navigation = useNavigation();
 
     const carData = [
         {        
@@ -35,6 +38,10 @@ export function Home () {
         },    
     ] as CarProps[];
 
+    function handleCarDetails(){
+        navigation.navigate('CarDetails');
+    };
+
     return (
     <Container>
         <StatusBar 
@@ -56,7 +63,7 @@ export function Home () {
         <CarList
           keyExtractor={(item) => item.data.id}
           data={carData}
-          renderItem={({ item }) => <Car data={item.data} />}
+          renderItem={({ item }) => <Car data={item.data} onPress={handleCarDetails}  />}
         />
 
     </Container>
