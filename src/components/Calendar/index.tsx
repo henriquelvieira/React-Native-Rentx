@@ -7,12 +7,14 @@ import {
 import { ptBR } from './localeConfig';
 
 import { Feather } from '@expo/vector-icons';
+import { generateInterval } from './generateInterval';
+
 import { useTheme } from 'styled-components';
 
 LocaleConfig.locales['pt-br'] = ptBR;
 LocaleConfig.defaultLocale = 'pt-br';
 
-interface MarketDateProps {
+interface MarkedDateProps {
     [date: string]: {
         color: string;
         textColor: string;
@@ -29,7 +31,7 @@ interface DayProps {
     timestamp: number;
 };
 
-export function Calendar ({ 
+function Calendar ({ 
     markedDates, 
     onDayPress 
 }: CalendarProps) {
@@ -38,7 +40,7 @@ export function Calendar ({
     return (
     <CustomCalendar 
         firstDay={1}
-        minDate={new Date()}
+        minDate={new Date().toString()}
         markingType='period'
         markedDates={markedDates}
         onDayPress={onDayPress}
@@ -74,3 +76,10 @@ export function Calendar ({
         
     );
 };
+
+export {
+    Calendar,
+    MarkedDateProps,
+    DayProps,
+    generateInterval
+}

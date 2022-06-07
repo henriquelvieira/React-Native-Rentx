@@ -1,7 +1,7 @@
 import React from 'react';
 import { Feather } from '@expo/vector-icons';
 import { RFValue } from 'react-native-responsive-fontsize';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { Header } from '@components/Header';
 import { ImageSlider } from '@components/ImageSlider';
@@ -41,9 +41,17 @@ import {
     RentalPriceTotal,
 } from './styles';
 
+interface Params { 
+    car: CarDTO;
+    dates: 
+};
+
 export function SchedulingDetails () {
     const navigation = useNavigation();
+    const route = useRoute();
+    const { car, dates } = route.params as Params;
 
+    
     function handleConfirmRental(){
         navigation.navigate('SchedulingComplete');
     };
@@ -73,6 +81,15 @@ export function SchedulingDetails () {
             </Details>
             
             <Accessories>
+                {/* {
+                    car.accessories.map(accessory => {
+                        return <Accessory 
+                                    key={accessory.type}
+                                    name={accessory.name} 
+                                    icon={getAcessoryIcon(accessory.type)} 
+                                />
+                    })
+                }                      */}
                 <Accessory name='380km/h' icon={speedSvg} />
                 <Accessory name='3.2s' icon={accelerationSvg} />
                 <Accessory name='800 HP' icon={forceSvg} />
