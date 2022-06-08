@@ -9,6 +9,7 @@ import { CarDTO } from '@dtos/carDTO';
 
 import { BackButton } from '@components/BackButton';
 import { Button } from '@components/Button';
+import ArrowSvg from '@assets/arrow.svg';
 import { 
     Calendar, 
     DayProps, 
@@ -16,7 +17,6 @@ import {
     generateInterval 
 } from '@components/Calendar';
 
-import ArrowSvg from '@assets/arrow.svg';
 
 import { 
     Container,
