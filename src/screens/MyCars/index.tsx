@@ -1,4 +1,6 @@
 import { BackButton } from '@components/BackButton';
+import { Car } from '@components/Car';
+import { AntDesign } from '@expo/vector-icons';
 import { Load } from '@components/Load';
 import { CarDTO } from '@dtos/carDTO';
 import { useNavigation } from '@react-navigation/native';
@@ -6,13 +8,37 @@ import { api } from '@services/api';
 import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'react-native';
 import { useTheme } from 'styled-components';
-import { Container, Content, Header, SubTitle, Title } from './styles';
+
+import { 
+    Container, 
+    Content, 
+    Header, 
+    SubTitle, 
+    Title,
+    Appointments,
+    AppointmentsTitle,
+    AppointmentsQuantity,
+    CarList,
+    CarWrapper,
+    RentalPeriod,
+    Period,
+    DateValueContainer,
+    DateValue,    
+} from './styles';
+
+export interface CarProps {
+    id: string;
+    user_id: string;
+    car: CarDTO;
+    startDate: string;
+    endDate: string;
+};
 
 export function MyCars () {
     const theme = useTheme();
     const navigation = useNavigation();
     
-    const [cars, setCars] = useState<CarDTO[]>([]);
+    const [cars, setCars] = useState<CarProps[]>([]);
     const [loading, setLoading] = useState<boolean>(true);    
 
     function handleBack(){
@@ -22,7 +48,7 @@ export function MyCars () {
     async function fetchMyCars() {
         const user_id = 1;
         try {
-            const response = await api.get(`/schedules_byuser/${user_id}`);
+            const response = await api.get(`/schedules_byuser/user_id=${user_id}`);
             setCars(response.data);
         } catch (error) {
             console.log(error);
@@ -60,14 +86,38 @@ export function MyCars () {
         </Header>
 
         <Content>
-            {loading ? 
+            <Appointments>
+                <AppointmentsTitle>Agendamentos feitos</AppointmentsTitle>
+                <AppointmentsQuantity>{cars.length}</AppointmentsQuantity>
+            </Appointments>
+
+            {
+            loading ? 
             <Load /> :
-            null
-            }            
+            <CarList
+                keyExtractor={(item) => String(item.id)}
+                data={cars}
+                renderItem={({ item }) => (
+                    <CarWrapper>
+                        <Car data={item.car} />
+                        <RentalPeriod>
+                            <Period>Período</Period>
+                            <DateValueContainer>
+                                <DateValue>{item.startDate}</DateValue>
+                                <AntDesign
+                                    name="arrowright"
+                                    size={20}
+                                    color={theme.colors.text_detail}
+                                />
+                                <DateValue>{item.endDate}</DateValue>
+                            </DateValueContainer>
+                        </RentalPeriod>
+                    </CarWrapper>
+                )}
+            />
+            }
+
         </Content>
-
-
-
         
     </Container>
     );

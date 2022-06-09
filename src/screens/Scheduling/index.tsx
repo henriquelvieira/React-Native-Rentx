@@ -9,6 +9,7 @@ import { CarDTO } from '@dtos/carDTO';
 
 import { BackButton } from '@components/BackButton';
 import { Button } from '@components/Button';
+
 import ArrowSvg from '@assets/arrow.svg';
 import { 
     Calendar, 
@@ -30,7 +31,6 @@ import {
     Content,
 } from './styles';
 
-
 interface RentalPeriod {
     startFormatted: string;
     endFormatted: string;
@@ -51,11 +51,6 @@ export function Scheduling () {
     const [rentalPeriod, setRentalPeriod] = useState({} as RentalPeriod);
 
     function handleConfirmRental(){
-
-        if (!rentalPeriod.startFormatted || !rentalPeriod.endFormatted){
-            Alert.alert('Selecione o intervalo para alugar.');
-            return;
-        };
 
         navigation.navigate('SchedulingDetails', {
             car,
@@ -137,6 +132,7 @@ export function Scheduling () {
             <Button 
                 title="Confirmar"
                 onPress={handleConfirmRental}
+                enabled={!!rentalPeriod.startFormatted}
             />
         </Footer>
         
