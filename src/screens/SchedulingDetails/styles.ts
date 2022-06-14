@@ -111,9 +111,7 @@ export const DateValue = styled.Text`
 
 export const RentalPrice = styled.View`
     width: 100%;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;    
+    margin-top: 16px;  
 `;
 
 export const RentalPriceLabel = styled.Text`

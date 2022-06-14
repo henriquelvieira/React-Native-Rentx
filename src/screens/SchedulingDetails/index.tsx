@@ -163,7 +163,7 @@ export function SchedulingDetails () {
                     name='chevron-right' 
                     size={RFValue(10)} 
                     color={theme.colors.text}
-                >
+                />
 
                 <DateInfo>
                     <DateTitle>ATÉ</DateTitle>

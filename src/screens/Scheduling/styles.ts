@@ -22,7 +22,7 @@ export const Header = styled.View`
     padding-top: ${getStatusBarHeight() + 30}px;
 `;
 
-export const Title = styled.View`
+export const Title = styled.Text`
     font-size: ${RFValue(30)}px;    
     font-family: ${({ theme }) => theme.fonts.secondary_600}; 
     color: ${({ theme }) => theme.colors.shape};
@@ -64,12 +64,10 @@ export const DateValue = styled.Text<DateValueProps>`
 
 export const Content = styled.ScrollView.attrs({
     contentContainerStyle: {
-        padding: 24,
-        alignItems: 'center',
+        padding: 24
     },
     showsVerticalScrollIndicator: false,
 })`
-    width: 100%;
 `;
 
 export const Footer = styled.View`

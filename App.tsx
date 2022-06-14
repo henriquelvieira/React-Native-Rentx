@@ -19,6 +19,7 @@ import { Home } from '@screens/Home';
 import { CarDetails } from '@screens/CarDetails';
 
 import theme from '@theme/theme';
+import { Routes } from '@routes/index';
 
 
 export default function App() {
@@ -39,7 +40,7 @@ export default function App() {
       <ThemeProvider theme={theme}>
           <StatusBar style="light" translucent backgroundColor="transparent" />
           {/* <Home /> */}
-          <CarDetails />
+          <Routes />
           
       </ThemeProvider>
     </GestureHandlerRootView>

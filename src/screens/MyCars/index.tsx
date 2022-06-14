@@ -1,13 +1,15 @@
-import { BackButton } from '@components/BackButton';
-import { Car } from '@components/Car';
-import { AntDesign } from '@expo/vector-icons';
-import { Load } from '@components/Load';
-import { CarDTO } from '@dtos/carDTO';
-import { useNavigation } from '@react-navigation/native';
-import { api } from '@services/api';
 import React, { useEffect, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'react-native';
 import { useTheme } from 'styled-components';
+import { AntDesign } from '@expo/vector-icons';
+
+import { api } from '@services/api';
+import { CarDTO } from '@dtos/carDTO';
+
+import { BackButton } from '@components/BackButton';
+import { Car } from '@components/Car';
+import { Load } from '@components/Load';
 
 import { 
     Container, 
@@ -25,6 +27,7 @@ import {
     DateValueContainer,
     DateValue,    
 } from './styles';
+import { format, parseISO } from 'date-fns';
 
 export interface CarProps {
     id: string;
@@ -48,7 +51,7 @@ export function MyCars () {
     async function fetchMyCars() {
         const user_id = 1;
         try {
-            const response = await api.get(`/schedules_byuser/user_id=${user_id}`);
+            const response = await api.get(`/schedules_byuser?user_id=${user_id}`);
             setCars(response.data);
         } catch (error) {
             console.log(error);

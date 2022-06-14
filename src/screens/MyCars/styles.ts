@@ -2,39 +2,37 @@ import { FlatList, FlatListProps } from 'react-native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { RFValue } from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
-import { CarDTO } from '@dtos/carDTO';
 import { CarProps } from '.';
 
 export const Container = styled.View`
     flex: 1;
+    align-items: center;
     background-color: ${({ theme }) => theme.colors.background_secondary}; 
 `;
 
 export const Header = styled.View`
     width: 100%;
     height: 325px;
-    
-    background-color: ${({ theme }) => theme.colors.header}; 
-
+    background-color: ${({ theme }) => theme.colors.header};
     justify-content: center;
     padding: 25px;
-    padding-top: ${getStatusBarHeight() + 30}px;
+    padding-top: ${getStatusBarHeight() + 30}px
 `;
 
-export const Title = styled.View`
+export const Title = styled.Text`
     font-size: ${RFValue(30)}px;    
     font-family: ${({ theme }) => theme.fonts.secondary_600}; 
     color: ${({ theme }) => theme.colors.shape};
 
-    line-height: ${RFValue(34)}px;    
+    margin-top: 24px;
 `;
 
-export const SubTitle = styled.View`
+export const SubTitle = styled.Text`
     font-size: ${RFValue(15)}px;    
     font-family: ${({ theme }) => theme.fonts.secondary_400}; 
     color: ${({ theme }) => theme.colors.shape};
 
-    line-height: ${RFValue(34)}px;    
+    margin-top: 24px;    
 `;
 
 export const Content = styled.View`
