@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StatusBar, StyleSheet } from 'react-native';
+import { BackHandler, StatusBar, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { Ionicons } from '@expo/vector-icons';
@@ -11,6 +11,7 @@ import { api } from '@services/api';
 import { CarDTO } from '@dtos/carDTO';
 
 import { Car } from '@components/Car';
+import { LoadAnimation } from '@components/LoadAnimation';
 import { Load } from '@components/Load';
 
 import Logo from '@assets/logo.svg';
@@ -86,6 +87,14 @@ export function Home () {
         const response = fetchCars();
     }, []);
 
+
+    useEffect(() => {
+        //Prevenir voltar para a tela de Splash
+        BackHandler.addEventListener('hardwareBackPress', () => {
+            return true;
+        });
+    }, []);
+
     return (
             
     <Container>
@@ -101,12 +110,15 @@ export function Home () {
                     width={RFValue(108)}
                     height={RFValue(12)}
                 />
-                <TotalCars>{`Total de ${cars.length} carros`}</TotalCars>
+                {
+                    !loading && <TotalCars>{`Total de ${cars.length} carros`}</TotalCars> 
+                }
+                
             </HeaderContent>
         </Header>
         
         {loading ? 
-        <Load /> :
+        <LoadAnimation /> :
         <CarList
           keyExtractor={(item) => item.id}
           data={cars}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StatusBar } from 'expo-status-bar';
+import { StatusBar } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { ThemeProvider } from 'styled-components';
 import AppLoading from 'expo-app-loading';
@@ -15,12 +15,9 @@ import {
   Archivo_600SemiBold
 } from '@expo-google-fonts/archivo';
 
-import { Home } from '@screens/Home';
-import { CarDetails } from '@screens/CarDetails';
 
 import theme from '@theme/theme';
 import { Routes } from '@routes/index';
-
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -38,10 +35,12 @@ export default function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }} >
       <ThemeProvider theme={theme}>
-          <StatusBar style="light" translucent backgroundColor="transparent" />
-          {/* <Home /> */}
-          <Routes />
-          
+      <StatusBar 
+            barStyle='light-content' 
+            backgroundColor="transparent" 
+            translucent
+        />  
+          <Routes />      
       </ThemeProvider>
     </GestureHandlerRootView>
   );

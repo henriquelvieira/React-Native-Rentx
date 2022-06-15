@@ -9,7 +9,7 @@ import { CarDTO } from '@dtos/carDTO';
 
 import { BackButton } from '@components/BackButton';
 import { Car } from '@components/Car';
-import { Load } from '@components/Load';
+import { LoadAnimation } from '@components/LoadAnimation';
 
 import { 
     Container, 
@@ -96,7 +96,7 @@ export function MyCars () {
 
             {
             loading ? 
-            <Load /> :
+            <LoadAnimation /> :
             <CarList
                 keyExtractor={(item) => String(item.id)}
                 data={cars}
