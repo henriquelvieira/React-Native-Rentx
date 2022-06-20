@@ -6,6 +6,10 @@ interface ButtonProps extends RectButtonProps {
     color?: string;
 };
 
+interface ButtonTextProps {
+    light?: boolean;
+};
+
 export const Container = styled(RectButton)<ButtonProps>`
     width: 100%; 
     
@@ -13,11 +17,13 @@ export const Container = styled(RectButton)<ButtonProps>`
     align-items: center;
     justify-content: center;
 
+    margin-bottom: 8px;
+
     background-color: ${({ theme, color }) => color ? color: theme.colors.main};
 `;
 
-export const Title = styled.TextInput`
+export const Title = styled.Text<ButtonTextProps>`
     font-size: ${RFValue(15)}px;    
     font-family: ${({ theme }) => theme.fonts.primary_500}; 
-    color: ${({ theme }) => theme.colors.shape};
+    color: ${({ theme, light }) => light ? theme.colors.header : theme.colors.shape};
 `;

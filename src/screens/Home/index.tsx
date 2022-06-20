@@ -12,7 +12,6 @@ import { CarDTO } from '@dtos/carDTO';
 
 import { Car } from '@components/Car';
 import { LoadAnimation } from '@components/LoadAnimation';
-import { Load } from '@components/Load';
 
 import Logo from '@assets/logo.svg';
 
@@ -21,8 +20,7 @@ import {
     Container, 
     Header, 
     HeaderContent, 
-    TotalCars,
-    MyCarButton
+    TotalCars
 } from './styles';
 
 const ButtonAnimated = Animated.createAnimatedComponent(RectButton);
