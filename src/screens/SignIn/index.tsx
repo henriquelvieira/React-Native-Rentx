@@ -3,8 +3,10 @@ import {
     StatusBar, 
     KeyboardAvoidingView, 
     TouchableWithoutFeedback, 
-    Keyboard
+    Keyboard,
+    Alert
 } from 'react-native';
+import * as Yup from 'yup';
 import { useTheme } from 'styled-components';
 
 import { Button } from '@components/Button';
@@ -24,8 +26,27 @@ import {
 export function SignIn () {
 
     const theme = useTheme();
-    const [eMail, setEMail] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    async function handleSingIn() {
+
+        try {
+            const schema = Yup.object().shape({
+                email: Yup.string().email('Digite um E-mail válido').required('E-mail é obrigatório'),
+                password: Yup.string().required('Senha é obrigatória'),
+            });
+            await schema.validate({ email, password });  
+            Alert.alert('Sucesso', 'Login realizado com sucesso');
+        } catch (error) {
+            if (error instanceof Yup.ValidationError) {
+                Alert.alert('Opa', error.message);
+            } else {
+                Alert.alert('Erro na autenticação', 'Ocorreu um erro ao efetuar o login, por favor verifique as credenciais')
+            }
+            
+        }
+    }
     
     return (
     <KeyboardAvoidingView behavior='position' enabled>
@@ -51,8 +72,8 @@ export function SignIn () {
                         keyboardType='email-address'
                         autoCorrect={false}
                         autoCapitalize='none'
-                        onChangeText={setEMail}
-                        value={eMail}
+                        onChangeText={setEmail}
+                        value={email}
                     />
                     <PasswordInput 
                         iconName='lock' 
@@ -67,8 +88,8 @@ export function SignIn () {
                 <Footter>
                     <Button 
                         title='Login' 
-                        onPress={() => {}}
-                        enabled={false}
+                        onPress={handleSingIn}
+                        enabled={true}
                         loading={false}
                     />
                     <Button 
