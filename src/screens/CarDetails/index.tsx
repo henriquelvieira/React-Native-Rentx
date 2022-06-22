@@ -1,7 +1,9 @@
 import React from 'react';
+import { StatusBar } from 'react-native';
 import { StyleSheet } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
+import { useTheme } from 'styled-components';
 import Animated, { 
     Extrapolate,
     interpolate,
@@ -16,13 +18,13 @@ import { getAcessoryIcon } from '@utils/getAcessoryIcon';
 import { ImageSlider } from '@components/ImageSlider';
 import { Accessory } from '@components/Accessory'; 
 import { Button } from '@components/Button';
+import { BackButton } from '@components/BackButton';
 
 import { 
     Brand, 
     CarImages, 
     Container, 
     Header,
-    Content, 
     Description, 
     Details, 
     Name, 
@@ -33,9 +35,6 @@ import {
     Accessories,
     Footer
 } from './styles';
-import { StatusBar } from 'react-native';
-import { BackButton } from '@components/BackButton';
-import { useTheme } from 'styled-components';
 
 interface Params { 
     car: CarDTO;
