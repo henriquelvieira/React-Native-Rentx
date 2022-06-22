@@ -36,7 +36,7 @@ interface RentalPeriod {
     endFormatted: string;
 };
 
-interface Params { 
+interface SchedulingParams { 
     car: CarDTO;
 };
 
@@ -44,7 +44,7 @@ export function Scheduling () {
     const theme = useTheme();
     const navigation = useNavigation();
     const route = useRoute();
-    const { car } = route.params as Params;
+    const { car } = route.params as SchedulingParams;
 
     const [lastSelectedDate, setLastSelectedDate] = useState<DayProps>({} as DayProps);
     const [markedDates, setMarkedDates] = useState<MarkedDateProps>({} as MarkedDateProps);
@@ -75,7 +75,7 @@ export function Scheduling () {
         setLastSelectedDate(end);
         const interval = generateInterval(start, end);
         setMarkedDates(interval);
-
+        
         const ObjectKeys = Object.keys(interval);
         const firstDate = ObjectKeys[0];
         const endDate = ObjectKeys[ObjectKeys.length - 1];
