@@ -61,7 +61,7 @@ export function SignIn () {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <Container>
                 <StatusBar 
-                    barStyle='light-content' 
+                    barStyle='dark-content' 
                     backgroundColor="transparent" 
                     translucent
                 />

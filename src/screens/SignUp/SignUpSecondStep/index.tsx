@@ -10,6 +10,9 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import * as Yup from 'yup';
 import { useTheme } from 'styled-components';
 
+import { api } from '@services/api';
+import { UserProps } from '../SignUpFirstStep';
+
 import { BackButton } from '@components/BackButton';
 import { Bullet } from '@components/Bullet';
 import { Button } from '@components/Button';
@@ -21,12 +24,10 @@ import {
     Header,
     Steps
 } from './styles';
-import { UserProps } from '../SignUpFirstStep';
 
 export interface UserDTO {
     user: UserProps;
 };
-
 
 export function SignUpSecondStep () {
     const theme = useTheme();
@@ -56,13 +57,22 @@ export function SignUpSecondStep () {
                     password: password
                 }
             };
-            console.log(data);
-         
-            navigation.navigate('Confirmation', {
-                title: 'Conta criada!',
-                message: 'Agora é só fazer login\ne aproveitar o app!',
-                nextScreenRoute: 'SignIn',
-            }); 
+            
+            await api.post('/users', {
+                name: data.user.name,
+                email: data.user.email,
+                password: data.user.password,
+                driver_license: data.user.driverLicense,
+            }).then(() => {        
+                navigation.navigate('Confirmation', {
+                    title: 'Conta criada!',
+                    message: 'Agora é só fazer login\ne aproveitar o app!',
+                    nextScreenRoute: 'SignIn',
+                })
+            }).catch(() => {
+                Alert.alert('Opa', 'Ocorreu um erro ao criar a conta, tente novamente.');
+            });
+
         } catch (error) {
             if (error instanceof Yup.ValidationError) {
                 Alert.alert('Opa', error.message);
