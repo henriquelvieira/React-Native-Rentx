@@ -11,6 +11,8 @@ import {
 import * as Yup from 'yup';
 import { useTheme } from 'styled-components';
 
+import { useAuth } from '@hooks/auth';
+
 import { Button } from '@components/Button';
 import { Input } from '@components/Input';
 import { PasswordInput } from '@components/PasswordInput';
@@ -29,6 +31,7 @@ export function SignIn () {
 
     const theme = useTheme();
     const navigation = useNavigation();
+    const { signIn } = useAuth();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -41,15 +44,18 @@ export function SignIn () {
                 password: Yup.string().required('Senha é obrigatória'),
             });
             await schema.validate({ email, password });  
-            Alert.alert('Sucesso', 'Login realizado com sucesso');
+
+            signIn({ email, password });
+
         } catch (error) {
+            console.log(error)
             if (error instanceof Yup.ValidationError) {
                 Alert.alert('Opa', error.message);
             } else {
                 Alert.alert('Erro na autenticação', 'Ocorreu um erro ao efetuar o login, por favor verifique as credenciais')
             }
             
-        }
+        };
     };
 
     function handleNewAccount () {

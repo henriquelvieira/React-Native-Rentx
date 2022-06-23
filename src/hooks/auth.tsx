@@ -1,5 +1,5 @@
 import { api } from "@services/api";
-import { createContext, useState, ReactNode } from "react";
+import { createContext, useState, ReactNode, useContext } from "react";
 
 interface User {
     id: string;
@@ -21,7 +21,7 @@ interface SignInCredentials {
 
 interface AuthContextData {
     user: User;
-    signIn(credentials: SignInCredentials): Promise<void>;
+    signIn: (credentials: SignInCredentials) => Promise<void>
 };
 
 interface AuthProviderProps {
@@ -32,14 +32,43 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 function AuthProvider({ children }: AuthProviderProps) {
     const [data, setData] = useState<AuthState>({} as AuthState);
+
+    async function signIn({ email, password }: SignInCredentials) {
+        
+        try {
+            const response = await api.post('/sessions', {
+                email,
+                password,
+            });   
+
+            const { token, user } = response.data;
+            setData({ token, user });
+
+            api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+        } catch (error) {
+            console.log(error);
+        };
+    };
+
+    return (
+        <AuthContext.Provider 
+            value={{
+                 user: data.user,
+                 signIn
+            }}
+        >
+            {children}
+        </AuthContext.Provider>
+    )
 };
 
-async function singIn({ email, password }: SignInCredentials) {
-    const response = await api.post('/sessions', {
-        email,
-        password,
-    });
+function useAuth(){
+    const context = useContext(AuthContext);
+    return context;
+};
 
-    console.log(response.data);
-
+export {
+    AuthProvider,
+    useAuth
 }

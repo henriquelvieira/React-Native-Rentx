@@ -18,6 +18,7 @@ import {
 
 import theme from '@theme/theme';
 import { Routes } from '@routes/index';
+import { AppProvider } from '@hooks/';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -35,12 +36,14 @@ export default function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }} >
       <ThemeProvider theme={theme}>
-      <StatusBar 
-            barStyle='light-content' 
-            backgroundColor="transparent" 
-            translucent
-        />  
+        <AppProvider>
+          <StatusBar 
+                barStyle='light-content' 
+                backgroundColor="transparent" 
+                translucent
+            />  
           <Routes />      
+        </AppProvider>
       </ThemeProvider>
     </GestureHandlerRootView>
   );
