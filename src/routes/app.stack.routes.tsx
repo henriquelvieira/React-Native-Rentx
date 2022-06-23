@@ -11,6 +11,7 @@ import { Splash } from '@screens/Splash';
 import { SignIn } from '@screens/SignIn';
 import { SignUpFirstStep } from '@screens/SignUp/SignUpFirstStep';
 import { SignUpSecondStep, UserDTO } from '@screens/SignUp/SignUpSecondStep';
+import { CarDTO } from '@dtos/carDTO';
 
 
 const { Navigator, Screen } = createStackNavigator();
@@ -18,7 +19,7 @@ const { Navigator, Screen } = createStackNavigator();
 export type RootStackParamList = {
     Home: undefined;
     CarDetails: undefined;
-    Scheduling: undefined;
+    Scheduling: { car: CarDTO };
     SchedulingDetails: undefined;
     Confirmation: ConfirmationProps;
     MyCars: undefined;
@@ -33,13 +34,13 @@ declare global {
     }
 };
 
-export function StackRoutes() {
+export function AppStackRoutes() {
     return (
         <Navigator 
             screenOptions={{
                 headerShown: false
             }}
-            initialRouteName="SignIn"
+            initialRouteName="Splash"
         >
             <Screen name="Splash" component={Splash} />
             <Screen name="SignIn" component={SignIn} />

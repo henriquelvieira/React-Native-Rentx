@@ -101,7 +101,7 @@ export function SchedulingDetails () {
     };
 
     function calculateRental(){
-        const totalPrice = Number(dates.length * car.rent.price);
+        const totalPrice = Number(dates.length * car.price);
 
         setRentalDetails({
             start: format(getPlataformDate(new Date(dates[0])), 'dd/MM/yyyy'),
@@ -133,8 +133,8 @@ export function SchedulingDetails () {
                 </Description>
 
                 <Rent>
-                    <Period>{car.rent.period}</Period>
-                    <Price>R$ {car.rent.price}</Price>
+                    <Period>{car.period}</Period>
+                    <Price>R$ {car.price}</Price>
                 </Rent>
             </Details>
             
@@ -179,7 +179,7 @@ export function SchedulingDetails () {
             <RentalPrice>
                 <RentalPriceLabel>TOTAL</RentalPriceLabel>
                 <RentalPriceDetails>
-                    <RentalPriceQuota>{`R$ ${car.rent.price} x${rentalDetails.totalRentDays} diárias`}</RentalPriceQuota>
+                    <RentalPriceQuota>{`R$ ${car.price} x${rentalDetails.totalRentDays} diárias`}</RentalPriceQuota>
                     <RentalPriceTotal>R$ {rentalDetails.totalPrice}</RentalPriceTotal>
                 </RentalPriceDetails>
             </RentalPrice>
