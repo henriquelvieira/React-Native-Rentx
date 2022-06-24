@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "expo start --dev-client",
-    "android": "expo run:android",
+    "start": "react-native start",
+    "start-expo": "expo start --dev-client",
+    "android-expo": "expo run:android",
+    "android": "react-native run-android",
     "ios": "expo run:ios",
     "web": "expo start --web",
     "api": "json-server ./src/services/server.json --host 192.168.0.107 --port 3333 --delay 700"
@@ -12,6 +14,7 @@
   "dependencies": {
     "@expo-google-fonts/archivo": "^0.2.2",
     "@expo-google-fonts/inter": "^0.2.2",
+    "@nozbe/watermelondb": "^0.24.0",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-navigation/bottom-tabs": "^6.3.1",
     "@react-navigation/native": "^6.0.10",
@@ -44,6 +47,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "@babel/plugin-proposal-decorators": "^7.18.2",
     "@types/react": "~17.0.21",
     "@types/react-native": "~0.67.6",
     "@types/react-native-vector-icons": "^6.4.10",
