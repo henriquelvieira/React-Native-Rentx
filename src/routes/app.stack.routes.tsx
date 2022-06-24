@@ -40,12 +40,8 @@ export function AppStackRoutes() {
             screenOptions={{
                 headerShown: false
             }}
-            initialRouteName="Splash"
+            initialRouteName="Home"
         >
-            <Screen name="Splash" component={Splash} />
-            <Screen name="SignIn" component={SignIn} />
-            <Screen name="SignUpFirstStep" component={SignUpFirstStep} />
-            <Screen name="SignUpSecondStep" component={SignUpSecondStep} />
             <Screen 
                 name="Home" 
                 component={Home} 

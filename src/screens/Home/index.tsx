@@ -128,7 +128,8 @@ export function Home () {
         />
         }
 
-        <PanGestureHandler onGestureEvent={onGestureEvent}>
+        {/* Botão flutuante */}
+        {/* <PanGestureHandler onGestureEvent={onGestureEvent}>
             <Animated.View
                 style={[
                     myCarsButtonStyle,
@@ -150,7 +151,7 @@ export function Home () {
                     />
                 </ButtonAnimated>
             </Animated.View>
-        </PanGestureHandler>
+        </PanGestureHandler> */}
 
 
     </Container>
