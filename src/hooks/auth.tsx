@@ -1,17 +1,16 @@
 import { api } from "@services/api";
 import { createContext, useState, ReactNode, useContext } from "react";
+import { database } from '../database'
+import { User as ModelUser } from '../database/model/User'
 
 interface User {
     id: string;
+    user_id: string;
     name: string;
     email: string;
     driver_license: string;
     avatar: string;
-};
-
-interface AuthState {
     token: string;
-    user: User;
 };
 
 interface SignInCredentials {
@@ -31,7 +30,7 @@ interface AuthProviderProps {
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 function AuthProvider({ children }: AuthProviderProps) {
-    const [data, setData] = useState<AuthState>({} as AuthState);
+    const [data, setData] = useState<User>({} as User);
 
     async function signIn({ email, password }: SignInCredentials) {
         
@@ -42,19 +41,31 @@ function AuthProvider({ children }: AuthProviderProps) {
             });   
 
             const { token, user } = response.data;
-            setData({ token, user });
+            setData({ ...user, token })
 
             api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
+            const userCollection = database.get<ModelUser>('users')
+            await database.write(async () => {
+                await userCollection.create((newUser) => {
+                    newUser.user_id = user.id,
+                        newUser.name = user.name,
+                        newUser.email = user.email,
+                        newUser.driver_license = user.driver_license,
+                        newUser.avatar = user.avatar,
+                        newUser.token = token
+                })
+            });
+
         } catch (error) {
-            console.log(error);
+            throw new Error(error);
         };
     };
 
     return (
         <AuthContext.Provider 
             value={{
-                 user: data.user,
+                 user: data,
                  signIn
             }}
         >
