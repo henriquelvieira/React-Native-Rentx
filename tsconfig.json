@@ -2,6 +2,7 @@
   "compilerOptions": {
     "strict": true,
     "baseUrl": "./",
+  "experimentalDecorators": true,
     "paths": {
       "@components/*": ["./src/components/*"],
       "@screens/*": ["./src/screens/*"],
