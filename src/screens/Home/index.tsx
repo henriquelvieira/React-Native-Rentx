@@ -70,19 +70,28 @@ export function Home () {
         navigation.navigate('MyCars');
     };
 
-    async function fetchCars(){
+    async function fetchCars(isMounted: boolean){
         try {
             const response = await api.get('/cars');
-            setCars(response.data);       
+            if (isMounted) {
+                setCars(response.data);       
+            }
         } catch (error) {
             console.log(error);            
         } finally {
-            setLoading(false);
+            if (isMounted) {
+                setLoading(false);
+            }
         }
     };
 
     useEffect(() => {
-        const response = fetchCars();
+        let isMounted = true;
+
+        fetchCars(isMounted);
+        return () => {
+            isMounted = false
+        }
     }, []);
 
 

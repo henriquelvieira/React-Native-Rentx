@@ -12,5 +12,5 @@ export const database = new Database({
     adapter,
     modelClasses: [
         User,
-    ],
+    ]
 })
