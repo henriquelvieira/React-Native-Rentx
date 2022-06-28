@@ -3,7 +3,6 @@ import { Platform } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTheme } from 'styled-components';
 
-import { Home } from '@screens/Home';
 import { MyCars } from '@screens/MyCars';
 import { AppStackRoutes } from './app.stack.routes';
 

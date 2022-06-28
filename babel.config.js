@@ -21,6 +21,7 @@ module.exports = function (api) {
           '@routes': './src/routes',
           '@services': './src/services',
           '@dtos': './src/dtos',
+          '@database': './src/database',
         }
       }
     ]

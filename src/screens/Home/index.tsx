@@ -6,9 +6,14 @@ import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from 'styled-components';
 import Animated, { useAnimatedGestureHandler, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import { PanGestureHandler, RectButton } from 'react-native-gesture-handler';
+import { synchronize } from '@nozbe/watermelondb/sync'
+import { useNetInfo } from '@react-native-community/netinfo'
 
 import { api } from '@services/api';
 import { CarDTO } from '@dtos/carDTO';
+
+import { database } from '@database/index'
+import { Car as ModelCar } from '@database/model/Car'
 
 import { Car } from '@components/Car';
 import { LoadAnimation } from '@components/LoadAnimation';
@@ -29,6 +34,7 @@ export function Home () {
 
     const navigation = useNavigation();
     const theme = useTheme();
+    const netInfo = useNetInfo();
 
     const positionY = useSharedValue(0);
     const positionX = useSharedValue(0);
@@ -60,7 +66,24 @@ export function Home () {
     });
 
     const [loading, setLoading] = useState<boolean>(true);
-    const [cars, setCars] = useState<CarDTO[]>([]);
+    const [cars, setCars] = useState<ModelCar[]>([]);
+
+    async function offlineSyncronize() {
+        await synchronize({
+            database,
+            pullChanges: async ({ lastPulledAt }) => {
+                const response = await api
+                    .get(`cars/sync/pull?lastPulledVersion=${lastPulledAt || 0}`)
+
+                const { changes, latestVersion } = response.data
+                return { changes, timestamp: latestVersion }
+            },
+            pushChanges: async ({ changes }) => {
+                const user = changes.users
+                await api.post('/users/sync', user)
+            }
+        })
+    }
 
     function handleCarDetails(car: CarDTO){
         navigation.navigate('CarDetails', { car });
@@ -72,15 +95,17 @@ export function Home () {
 
     async function fetchCars(isMounted: boolean){
         try {
-            const response = await api.get('/cars');
+            const carCollection = database.get<ModelCar>('cars')
+            const cars = await carCollection.query().fetch()
+
             if (isMounted) {
-                setCars(response.data);       
+                setCars(cars)
             }
         } catch (error) {
-            console.log(error);            
+            console.log(error)
         } finally {
             if (isMounted) {
-                setLoading(false);
+                setLoading(false)
             }
         }
     };
@@ -94,13 +119,18 @@ export function Home () {
         }
     }, []);
 
-
     useEffect(() => {
-        //Prevenir voltar para a tela de Splash
-        BackHandler.addEventListener('hardwareBackPress', () => {
-            return true;
-        });
-    }, []);
+        if (netInfo.isConnected === true) {
+            offlineSyncronize()
+        }
+    }, [netInfo.isConnected])
+
+    // useEffect(() => {
+    //     //Prevenir voltar para a tela de Splash
+    //     BackHandler.addEventListener('hardwareBackPress', () => {
+    //         return true;
+    //     });
+    // }, []);
 
     return (
             

@@ -11,7 +11,7 @@ import { Splash } from '@screens/Splash';
 import { SignIn } from '@screens/SignIn';
 import { SignUpFirstStep } from '@screens/SignUp/SignUpFirstStep';
 import { SignUpSecondStep, UserDTO } from '@screens/SignUp/SignUpSecondStep';
-import { CarDTO } from '@dtos/carDTO';
+import { Car as ModelCar } from '@database/model/Car';
 
 
 const { Navigator, Screen } = createStackNavigator();
@@ -19,7 +19,7 @@ const { Navigator, Screen } = createStackNavigator();
 export type RootStackParamList = {
     Home: undefined;
     CarDetails: undefined;
-    Scheduling: { car: CarDTO };
+    Scheduling: { car: ModelCar };
     SchedulingDetails: undefined;
     Confirmation: ConfirmationProps;
     MyCars: undefined;
