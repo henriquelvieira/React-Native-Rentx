@@ -1,3 +1,4 @@
+import React from 'react';
 import { api } from "@services/api";
 import { createContext, useState, ReactNode, useContext, useEffect } from "react";
 import { Alert } from "react-native";
@@ -100,18 +101,19 @@ function AuthProvider({ children }: AuthProviderProps) {
     }
     
 
-    useEffect(() => {
-        async function loadUserData() {
-            const userCollection = database.get<ModelUser>('users');
-            const response = await userCollection.query().fetch();
+    async function loadUserData() {
+        const userCollection = database.get<ModelUser>('users');
+        const response = await userCollection.query().fetch();
 
-            if (response.length > 0) {
-                const userData = response[0]._raw as unknown as User
-                api.defaults.headers.common['Authorization'] = `Bearer ${userData.token}`
-                setData(userData);
-                setLoading(false);
-            }
-        };
+        if (response.length > 0) {
+            const userData = response[0]._raw as unknown as User
+            api.defaults.headers.common['Authorization'] = `Bearer ${userData.token}`
+            setData(userData);
+            setLoading(false);
+        }
+    };
+    
+    useEffect(() => {
 
         loadUserData();
     }, [])

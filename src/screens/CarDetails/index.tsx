@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'react-native';
 import { StyleSheet } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -13,6 +13,7 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { CarDTO } from '@dtos/carDTO';
+import { Car as ModelCar } from '@database/model/Car';
 import { getAcessoryIcon } from '@utils/getAcessoryIcon';
 
 import { ImageSlider } from '@components/ImageSlider';
@@ -35,16 +36,21 @@ import {
     Accessories,
     Footer
 } from './styles';
+import { useNetInfo } from '@react-native-community/netinfo';
+import { api } from '@services/api';
 
 interface Params { 
-    car: CarDTO;
+    car: ModelCar;
 };
 
 export function CarDetails () {
+    const netInfo = useNetInfo()
     const theme = useTheme();
     const navigation = useNavigation();
     const route = useRoute();
     const { car } = route.params as Params;
+    
+    const [carUpdated, setCarUpdated] = useState<CarDTO>({} as CarDTO);
 
     const scrollY = useSharedValue(0);
     const scrollHandler = useAnimatedScrollHandler(event => {
@@ -80,6 +86,17 @@ export function CarDetails () {
     function handleBack(){
         navigation.goBack();
     };
+
+    async function fetchCarUpdated() {
+        const response = await api.get(`/cars/${car.id}`)
+        setCarUpdated(response.data)
+    };
+
+    useEffect(() => {
+        if (netInfo.isConnected === true) {
+            fetchCarUpdated()
+        }
+    }, [netInfo.isConnected])
     
     return (
     <Container>
