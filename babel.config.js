@@ -1,10 +1,10 @@
 module.exports = function (api) {
   api.cache(true);
   return {
-    presets: ['babel-preset-expo'],
+    presets: ['babel-preset-expo', 'module:metro-react-native-babel-preset'],
     plugins: [
       'react-native-reanimated/plugin',
-      'inline-dotenv',      
+      ['@babel/plugin-proposal-decorators', { legacy: true }],      
       [
       'module-resolver',
       {
@@ -21,6 +21,7 @@ module.exports = function (api) {
           '@routes': './src/routes',
           '@services': './src/services',
           '@dtos': './src/dtos',
+          '@database': './src/database',
         }
       }
     ]

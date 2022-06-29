@@ -7,12 +7,13 @@ import Animated, {
     withTiming,
     runOnJS
 } from 'react-native-reanimated';
+import { useNavigation } from '@react-navigation/native';
+import { StatusBar } from 'react-native';
 
 import BrandSvg from '@assets/brand.svg';
 import LogoSvg from '@assets/logo.svg';
 
 import { Container } from './styles';
-import { useNavigation } from '@react-navigation/native';
 
 
 export function Splash () {
@@ -49,7 +50,7 @@ export function Splash () {
      });
      
      function startApp() {
-        navigation.navigate('Home');
+        navigation.navigate('SignIn');
     };
      
     useEffect(() => {
@@ -66,6 +67,11 @@ export function Splash () {
 
     return (
     <Container>
+        <StatusBar 
+            barStyle='light-content' 
+            backgroundColor="transparent" 
+            translucent
+        />
         <Animated.View style={[brandStyle, {position: 'absolute'}]}>
             <BrandSvg width={80} height={59} />
         </Animated.View>

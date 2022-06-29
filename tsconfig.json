@@ -2,6 +2,7 @@
   "compilerOptions": {
     "strict": true,
     "baseUrl": "./",
+  "experimentalDecorators": true,
     "paths": {
       "@components/*": ["./src/components/*"],
       "@screens/*": ["./src/screens/*"],
@@ -13,6 +14,7 @@
       "@routes/*": ["./src/routes/*"],
       "@services/*": ["./src/services/*"],
       "@dtos/*": ["./src/dtos/*"],
+      "@database/*": ["./src/database/*"],
     }      
   },
   "extends": "expo/tsconfig.base"

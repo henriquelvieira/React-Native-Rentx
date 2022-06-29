@@ -3,10 +3,12 @@ import { Platform } from 'react-native';
 
 
 export function getPlataformDate(date: Date){
-    if (Platform.OS === 'ios') {
-        return addDays(date, 1);
-    } else {
-        return date;
-    }
+    // if (Platform.OS === 'ios') {
+    //     return addDays(date, 1);
+    // } else {
+    //     return date;
+    // }
+    return addDays(date, 1);
+    
 }
 

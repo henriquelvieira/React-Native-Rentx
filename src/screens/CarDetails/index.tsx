@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { StatusBar } from 'react-native';
 import { StyleSheet } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
+import { useTheme } from 'styled-components';
 import Animated, { 
     Extrapolate,
     interpolate,
@@ -11,18 +13,19 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { CarDTO } from '@dtos/carDTO';
+import { Car as ModelCar } from '@database/model/Car';
 import { getAcessoryIcon } from '@utils/getAcessoryIcon';
 
 import { ImageSlider } from '@components/ImageSlider';
 import { Accessory } from '@components/Accessory'; 
 import { Button } from '@components/Button';
+import { BackButton } from '@components/BackButton';
 
 import { 
     Brand, 
     CarImages, 
     Container, 
     Header,
-    Content, 
     Description, 
     Details, 
     Name, 
@@ -33,19 +36,21 @@ import {
     Accessories,
     Footer
 } from './styles';
-import { StatusBar } from 'react-native';
-import { BackButton } from '@components/BackButton';
-import { useTheme } from 'styled-components';
+import { useNetInfo } from '@react-native-community/netinfo';
+import { api } from '@services/api';
 
 interface Params { 
-    car: CarDTO;
+    car: ModelCar;
 };
 
 export function CarDetails () {
+    const netInfo = useNetInfo()
     const theme = useTheme();
     const navigation = useNavigation();
     const route = useRoute();
     const { car } = route.params as Params;
+    
+    const [carUpdated, setCarUpdated] = useState<CarDTO>({} as CarDTO);
 
     const scrollY = useSharedValue(0);
     const scrollHandler = useAnimatedScrollHandler(event => {
@@ -81,6 +86,17 @@ export function CarDetails () {
     function handleBack(){
         navigation.goBack();
     };
+
+    async function fetchCarUpdated() {
+        const response = await api.get(`/cars/${car.id}`)
+        setCarUpdated(response.data)
+    };
+
+    useEffect(() => {
+        if (netInfo.isConnected === true) {
+            fetchCarUpdated()
+        }
+    }, [netInfo.isConnected])
     
     return (
     <Container>
@@ -125,8 +141,8 @@ export function CarDetails () {
                 </Description>
 
                 <Rent>
-                    <Period>{car.rent.period}</Period>
-                    <Price>R$ {car.rent.price}</Price>
+                    <Period>{car.period}</Period>
+                    <Price>R$ {car.price}</Price>
                 </Rent>
 
             </Details>
